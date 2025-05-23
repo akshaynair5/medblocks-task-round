@@ -64,44 +64,51 @@ const PatientForm = ({ onSuccess }) => {
         value={form.name}
         placeholder="Name"
         onChange={handleChange}
-        className="border p-2 dark:bg-[#333] dark:text-white"
-        required
+        className="w-full px-4 py-2 border border-gray-500 bg-transparent text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 placeholder-gray-400 transition"
       />
+
       <input
         type="number"
         name="age"
         value={form.age}
         placeholder="Age"
         onChange={handleChange}
-        className="border p-2 dark:bg-[#333] dark:text-white"
-        required
         min="0"
+        className="w-full px-4 py-2 border border-gray-500 bg-transparent text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 placeholder-gray-400 transition"
       />
-      <input
-        type="text"
+
+      <select
         name="gender"
         value={form.gender}
-        placeholder="Gender"
         onChange={handleChange}
-        className="border p-2 dark:bg-[#333] dark:text-white"
+        className="w-full px-4 py-2 border border-gray-500 bg-gray-900 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 transition"
         required
-      />
+      >
+        <option className="text-white" value="">Select Gender</option>
+        <option className="text-white" value="Male">Male</option>
+        <option className="text-white" value="Female">Female</option>
+        <option className="text-white" value="Other">Other</option>
+      </select>
+
       <input
         type="text"
         name="ailment"
         value={form.ailment}
         placeholder="Ailment"
         onChange={handleChange}
-        className="border p-2 dark:bg-[#333] dark:text-white"
-        required
+        className="w-full px-4 py-2 border border-gray-500 bg-transparent text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-500 placeholder-gray-400 transition"
       />
+
       <button
         type="submit"
         disabled={loading}
-        className={`bg-green-600 text-white p-2 rounded ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+        className={`w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-md transition duration-300 ${
+          loading ? 'opacity-50 cursor-not-allowed' : ''
+        }`}
       >
         {loading ? "Submitting..." : "Submit"}
       </button>
+
     </form>
   );
 };
