@@ -1,12 +1,68 @@
-# React + Vite
+# Patient Registration Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a frontend-only Patient Registration app built using **React** and **Pglite** (a WebAssembly version of SQLite) for client-side data persistence. The app allows users to:
 
-Currently, two official plugins are available:
+* Register new patients
+* Query patient records using raw SQL
+* Maintain persistent data across page reloads
+* Sync updates across multiple tabs in real-time
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* **Pglite for Storage**
+  All data is stored directly in the browser using SQLite via Pglite (WebAssembly).
+* **BroadcastChannel API**
+  Ensures updates made in one tab reflect in all open tabs seamlessly.
+* **Live SQL Query Panel**
+  Run raw SQL queries on the client-side to explore patient data.
+
+---
+
+## Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/akshaynair5/medblocks-task-round.git
+
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Run the App Locally
+
+```bash
+npm run dev
+```
+
+The app will be available at `http://localhost:5173`.
+
+---
+
+## Implementation Overview
+
+* **Frontend Framework**: React (with Vite)
+* **Database**: Pglite for in-browser SQLite-like storage
+* **Tab Sync**: `BroadcastChannel` to synchronize data across tabs
+* **Persistence**: IndexedDB (via Pglite) keeps data across page reloads
+
+---
+
+## Notes
+
+* Make sure your browser supports **WebAssembly** and the **BroadcastChannel API**.
+* All data is stored **locally** in the browser; there's no backend.
+
+---
+
+## 🔗 Live Demo
+
+[**Click here to view the app live**](https://medblocks-task-round.vercel.app/)
+
+---
