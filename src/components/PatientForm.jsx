@@ -10,6 +10,9 @@ const PatientForm = ({ onSuccess }) => {
     gender: "",
     ailment: ""
   });
+  const ensureReady = async () => {
+    if (!db.isReady) await db.ready;
+  };
 
   const [loading, setLoading] = useState(false);
 
@@ -34,7 +37,7 @@ const PatientForm = ({ onSuccess }) => {
       const safeGender = sanitizeInput(gender);
       const safeAilment = sanitizeInput(ailment);
       const safeAge = parseInt(age);
-
+      await ensureReady();
       await db.exec(`
         INSERT INTO patients (name, age, gender, ailment)
         VALUES ('${safeName}', ${safeAge}, '${safeGender}', '${safeAilment}');

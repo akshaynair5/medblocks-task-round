@@ -10,6 +10,9 @@ const UpdatePatientModal = ({ patient, onClose, onUpdated }) => {
     gender: patient.gender,
     ailment: patient.ailment,
   });
+  const ensureReady = async () => {
+    if (!db.isReady) await db.ready;
+  };
   const [loading, setLoading] = useState(false);
 
   const sanitizeInput = (str) => str.replace(/'/g, "''").trim();
@@ -32,7 +35,7 @@ const UpdatePatientModal = ({ patient, onClose, onUpdated }) => {
       const safeGender = sanitizeInput(gender);
       const safeAilment = sanitizeInput(ailment);
       const safeAge = parseInt(age);
-
+      await ensureReady();
       await db.exec(`
         UPDATE patients
         SET name='${safeName}', age=${safeAge}, gender='${safeGender}', ailment='${safeAilment}'

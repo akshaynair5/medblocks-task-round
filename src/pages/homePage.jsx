@@ -14,9 +14,14 @@ const HomePage = () => {
   const [updatePatient, setUpdatePatient] = useState(null);
   const navigate = useNavigate();
 
+  const ensureReady = async () => {
+    if (!db.isReady) await db.ready;
+  };
+
   const loadPatients = useCallback(async () => {
     try {
       setLoading(true);
+      await ensureReady();
       const rows = await fetchPatientsFresh("SELECT * FROM patients;");
       setPatients(rows);
     } catch (err) {
@@ -59,6 +64,7 @@ const HomePage = () => {
     if (!window.confirm("Are you sure you want to delete this patient?")) return;
 
     try {
+      await ensureReady();
       await db.exec(`DELETE FROM patients WHERE id=${id};`);
       pgSyncChannel.postMessage("data-updated");
       toast.success("Patient deleted successfully!");
@@ -77,19 +83,21 @@ const HomePage = () => {
         </h1>
         <div className="flex gap-3">
         <button
-            onClick={() => setShowModal(true)}
-            className="bg-green-500 hover:bg-green-600 transition-colors duration-300 rounded-lg px-5 py-2 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-green-400"
-            aria-label="Register Patient"
+        onClick={() => setShowModal(true)}
+        className=" hover:bg-green-500 text-white font-medium px-4 py-1.5 rounded-md transition duration-200 focus:outline-none focus:ring-2 focus:ring-green-400 border border-green-600"
+        aria-label="Register Patient"
         >
-            Register Patient
+        + Register
         </button>
+
         <button
             onClick={() => navigate("/sql")}
-            className="bg-blue-500 hover:bg-blue-600 transition-colors duration-300 rounded-lg px-5 py-2 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="hover:bg-green-500 text-white font-medium px-4 py-1.5 rounded-md transition duration-200 focus:outline-none focus:ring-2 focus:ring-green-400 border border-green-600"
             aria-label="Open SQL Console"
         >
             Open SQL Console
         </button>
+
         </div>
     </header>
 
